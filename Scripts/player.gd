@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+@export var camer:Camera3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -18,6 +19,8 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "forward", "backwoard")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	direction = direction.rotated(Vector3.UP, camer.global_rotation.y)
+	print(direction)
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
